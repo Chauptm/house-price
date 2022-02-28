@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html >
+<body style="font-size: 20px;">
+ <div >
+	<h1 style="text-align:center;">Dự đoán giá khách sạn</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post">
+        <table style="width:100%">
+    
+            <tr>
+              <td>
+                <label>Chọn accommodationType:</label>
+                <select name="accommodationType" id="accommodationType">
+                    <option value="-1">Khách sạn & Nhà</option>
+                    <option value="34">Khách sạn</option>
+                    <option value="29">Toàn bộ căn hộ</option>
+                    <option value="112">Biệt thự nghỉ dưỡng</option>
+                    <option value="28">Biệt thự tư nhân</option>
+                    <option value="37">Resort</option>
+                    <option value="131">Toàn bộ nhà riêng</option>
+                    <option value="108">Homestay</option>
+                    <option value="120">Căn hộ dịch vụ</option>
+                    <option value="33">Nhà nghỉ</option>
+                    <option value="32">Nhà khách / Nhà nghỉ</option>
+                    <option value="103">Toàn bộ nhà trệt</option>
+                    <option value="107">Nhà ở ngoại ô</option>
+                    <option value="112">Lodge</option>
+                    <option value="110">Công viên giải trí</option>
+                    <option value="35">Nhà nghỉ ven đường</option>
+                    <option value="106">Chalet (nhà gỗ)</option>
+                    <option value="109">Nông trại</option>
+                    <option value="114">Lều</option>
+                    <option value="105">Khách sạn con nhộng</option>
+                    <option value="30">Villa</option>
+                    <option value="113">Khách sạn tình yêu</option>
+                    <option value="111">Inn (phòng trọ)</option>
+                </select>
+              </td>
+              <td>
+                <label>Chọn propertyType:</label>
+                <select name="propertyType" id="propertyType">
+                    <option value="Hotel">Hotel</option>
+                    <option value="SingleRoom">SingleRoom</option>
+                    <option value="NonHotel">NonHotel</option>
+                </select>
+              </td>
+              <td>
+                <label>Chọn province:</label>
+                <select name="province" id="province">
+                    <option value="Hà Nội">Hà Nội</option>
+                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                    <option value="Đà Lạt">Đà Lạt</option>
+                    <option value="Vũng Tàu">Vũng Tàu</option>
+                    <option value="Nha Trang">Nha Trang</option>
+                    <option value="Huế">Huế</option>
+                    <option value="Đà Nẵng">Đà Nẵng</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Wifi_free:</label>
+                    <select name="wifi_free" id="wifi_free">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                      </select>
+                </td>
+                <td>
+                    <label>HasAirportTransfer:</label>
+                    <select name="hasAirportTransfer" id="hasAirportTransfer">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                      </select>
+                </td>
+                <td>
+                    <label>HasKitchen:</label>
+                    <select name="hasKitchen" id="hasKitchen">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                      </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>IsDrySteam:</label>
+                    <select name="isDrySteam" id="isDrySteam">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                      </select>
+                </td>
+                <td>
+                    <label>IsDailyCleaning:</label>
+                    <select name="isDailyCleaning" id="isDailyCleaning">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                      </select>
+                </td>
+                <td>
+                    <label>HasNearbyPublicTransportation:</label>
+                    <select name="hasNearbyPublicTransportation" id="hasNearbyPublicTransportation">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Breakfast_include:</label>
+                    <select name="breakfast_include" id="breakfast_include">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select>
+                </td>
+                <td>
+                    <label>Free_parking:</label>
+                    <select name="free_parking" id="free_parking">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select>
+                </td>
+                <td>
+                    <label>Pets_allowed:</label>
+                    <select name="pets_allowed" id="pets_allowed">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>In_room_safe:</label>
+                    <select name="in_room_safe" id="in_room_safe">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select>
+                    
+                </td>
+                <td>
+                    <label>Private_entrance:</label>
+                    <select name="private_entrance" id="private_entrance">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select>
+                </td>
+                <td>
+                    <label>Smoking_area:</label>
+                    <select name="smoking_area" id="smoking_area">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Soundproof:</label>
+                    <select name="soundproof" id="soundproof">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select>
+                </td>
+                <td>
+                    <label>Towels:</label>
+                    <select name="towels" id="towels">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select>
+                </td>
+                <td>
+                    <label>Facilities_for_disabled_guests:</label>
+                    <select name="facilities_for_disabled_guests" id="facilities_for_disabled_guests">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Balcony_terrace:</label>
+                    <select name="balcony_terrace" id="balcony_terrace">
+                        <option value="1">Có</option>
+                        <option value="0">Không</option>
+                    </select>
+                </td>
+                <td>
+                    <label>ExtraBedsAvailable:</label>
+                    <select name="extraBedsAvailable" id="extraBedsAvailable">
+                        <option value="True">Có</option>
+                        <option value="Flase">Không</option>
+                    </select>
+                </td>
+                <td>
+                    <label>CancellationType:</label>
+                    <select name="cancellationType" id="cancellationType">
+                        <option value="FreeCancellation">FreeCancellation</option>
+                        <option value="NonRefundable">NonRefundable</option>
+                        <option value="SpecialConditions">SpecialConditions</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Latitude:</label>
+                    <input type="text" name="latitude" placeholder="latitude" required="required" />
+                </td>
+                <td>
+                    <label>Longitude:</label>
+                    <input type="text" name="longitude" placeholder="longitude" required="required" />
+                </td>
+                <td>
+                    <label>No_reviews:</label>
+                    <input type="text" name="no_reviews" placeholder="no_reviews" required="required" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Score:</label>
+                    <input type="text" name="score" placeholder="score" required="required" />
+                </td>
+                <td>
+                    <label>Distance_city_centre</label>
+                    <input type="text" name="distance_city_centre" placeholder="distance_city_centre" required="required" />
+               
+                </td>
+                <td>
+                    <label>Distance_to_station</label>
+                    <input type="text" name="distance_to_station" placeholder="distance_to_station" required="required" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Distance_to_topLandmark</label>
+                    <input type="text" name="distance_to_topLandmark" placeholder="distance_to_topLandmark" required="required" />
+                
+                </td>
+                <td>
+                    <label>RoomSize:</label>
+                    <input type="text" name="roomSize" placeholder="roomSize" required="required" />
+                </td>
+            </tr>
+            <tr style="text-align:center;">
+                <td colspan="3">
+                    <button type="submit" style="background-color: #4CAF50;padding: 16px 32px;text-align: center;border: 2px solid #4CAF50;font-size: 20px;">Predict</button>
+                </td>
+            </tr>
+            <tr style="text-align:center;">
+                <td colspan="3">
+                    {{ prediction_text }}
+                </td>
+            </tr>
+          </table>
+
+
+    </form>
+ </div>
+</body>
+</html>
